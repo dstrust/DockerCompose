@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  FreshRSS:
+    container_name: "FreshRSS"
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - "./data:/config"
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    image: "lscr.io/linuxserver/freshrss"
+  Aggregator:
+    restart: unless-stopped
+    ports:
+      - "81:80"
+    container_name: "FiveFilter"
+    image: "heussd/fivefilters-full-text-rss:latest"
